@@ -3,9 +3,10 @@ import Tabs from '@mui/material/Tabs'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { Tab } from '@mui/material'
-import ProductManagement from 'src/pages/productManagement'
-import Header from '../Header'
+import ProductManagement from 'src/pages/products'
+import Header from '../../components/Header'
 import classNames from 'classnames'
+import ProductForm from 'src/pages/products/productForm'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -167,7 +168,7 @@ export default function VerticalTabs() {
         <Header />
 
         <TabPanel value={value} index={0}>
-          Item One
+          <ProductForm />
         </TabPanel>
 
         <TabPanel value={value} index={1}>
@@ -184,5 +185,4 @@ export default function VerticalTabs() {
       </div>
     </Box>
   )
-  //<div className='col-span-8 bg-white shadow'>HEADER HEAR</div>
 }

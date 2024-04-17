@@ -3,25 +3,9 @@ import TextField from '@mui/material/TextField'
 import { useForm } from 'react-hook-form'
 import { Button, MenuItem } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-
-const currencies = [
-  {
-    value: 'USD',
-    label: '$'
-  },
-  {
-    value: 'EUR',
-    label: '€'
-  },
-  {
-    value: 'BTC',
-    label: '฿'
-  },
-  {
-    value: 'JPY',
-    label: '¥'
-  }
-]
+import { productGender, categoryTitle } from 'src/constant/product'
+import ProductDetail from './components/ProductDetail'
+import ImageInput from './components/ImageInput'
 
 export default function ProductForm() {
   const { register, handleSubmit } = useForm<{ name: string; material: string }>({
@@ -39,9 +23,9 @@ export default function ProductForm() {
       noValidate
       autoComplete='off'
       onSubmit={onSubmit}
-      className='bg-gray-100 p-5 border rounded-md shadow'
+      className='bg-gray-100 p-10 border rounded-md shadow'
     >
-      <div className='text-xl'>Product Information</div>
+      <div className='text-2xl mb-8'>Product Information</div>
       <div className='grid grid-cols-12 mt-3'>
         <div className='col-span-5'>
           <div>
@@ -54,13 +38,49 @@ export default function ProductForm() {
             />
           </div>
           <div className='mt-[30px]'>
-            <TextField className='w-[400px]' id='outlined-select-currency' select label='Type' defaultValue='EUR'>
-              {currencies.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
+            <TextField
+              className='w-[400px]'
+              id='outlined-select-currency'
+              select
+              label='Category Title'
+              defaultValue={categoryTitle.shirt}
+            >
+              {Object.keys(categoryTitle as { [key: string]: string }).map((key) => (
+                <MenuItem key={key} value={categoryTitle[key as keyof typeof categoryTitle] as string}>
+                  {categoryTitle[key as keyof typeof categoryTitle] as string}
                 </MenuItem>
               ))}
             </TextField>
+          </div>
+          <div className='mt-[30px]'>
+            <TextField
+              className='w-[400px]'
+              id='outlined-select-currency'
+              select
+              label='Category Name'
+              defaultValue='EUR'
+            >
+              {Object.keys(productGender as { [key: string]: string }).map((key) => (
+                <MenuItem key={key} value={productGender[key as keyof typeof productGender] as string}>
+                  {productGender[key as keyof typeof productGender] as string}
+                </MenuItem>
+              ))}
+            </TextField>
+          </div>
+          <div className='mt-[30px]'>
+            <TextField className='w-[400px]' id='outlined-select-currency' select label='Gender' defaultValue='EUR'>
+              {Object.keys(productGender as { [key: string]: string }).map((key) => (
+                <MenuItem key={key} value={productGender[key as keyof typeof productGender] as string}>
+                  {productGender[key as keyof typeof productGender] as string}
+                </MenuItem>
+              ))}
+            </TextField>
+          </div>
+          <div className='mt-[30px]'>
+            <TextField className='w-[400px]' id='outlined-basic' label='Type' variant='outlined' />
+          </div>
+          <div className='mt-[30px]'>
+            <TextField className='w-[400px]' id='outlined-basic' label='Price' variant='outlined' />
           </div>
           <div className='mt-[30px]'>
             <TextField
@@ -72,44 +92,37 @@ export default function ProductForm() {
             />
           </div>
           <div className='mt-[30px]'>
+            <TextField
+              id='outlined-multiline-static'
+              className='w-[400px]'
+              label='Description'
+              multiline
+              rows={3}
+              defaultValue='Default Value'
+            />
+          </div>
+          <div className='mt-[30px]'>
+            <TextField
+              id='outlined-multiline-static'
+              className='w-[400px]'
+              label='Warning'
+              multiline
+              rows={3}
+              defaultValue='Default Value'
+            />
+          </div>
+          <div className='mt-[30px]'>
             <DatePicker className='w-[400px]' label='Choose release date' />
           </div>
+          <ImageInput title='Insert Cover Image' />
+          <ImageInput title='Insert Product Images' multiple />
         </div>
-        <div className='col-start-6 col-span-7 '>
-          <div className='flex items-center justify-start'>
-            <TextField className='w-[150px] mr-8' id='outlined-select-currency' select defaultValue='EUR'>
-              {currencies.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-            <TextField className='w-[150px] mr-8' id='outlined-select-currency' select defaultValue='EUR'>
-              {currencies.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-            <TextField className='w-[120px] mr-8' id='outlined-basic' variant='outlined' defaultValue='100' />
-          </div>
-          <div className='flex items-center justify-start mt-[30px]'>
-            <TextField className='w-[150px] mr-8' id='outlined-select-currency' select label='Size' defaultValue='EUR'>
-              {currencies.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-            <TextField className='w-[150px] mr-8' id='outlined-select-currency' select label='Color' defaultValue='EUR'>
-              {currencies.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-            <TextField className='w-[120px] mr-8' id='outlined-basic' label='quantity' variant='outlined' />
-            <Button variant='contained' className='w-[80px] h-9 '>
+        <div className='col-start-7 col-span-7'>
+          <ProductDetail />
+          <ProductDetail />
+          <ProductDetail />
+          <div className='flex items-center mt-5'>
+            <Button variant='contained' className='w-full h-9 '>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'
@@ -125,7 +138,7 @@ export default function ProductForm() {
         </div>
       </div>
       <Button
-        className='mt-5 w-[150px]'
+        className='mt-7 w-[150px]'
         variant='contained'
         endIcon={
           <svg

@@ -48,8 +48,8 @@ export default function VerticalTabs() {
     setValue(newValue)
   }
   return (
-    <Box className='grid grid-cols-10 gap-2 h-full'>
-      <div className='col-span-2 h-full bg-[#383F51]'>
+    <Box className='grid grid-cols-10 gap-2 h-[100vh]'>
+      <div className='col-span-2 h-full bg-[#383F51] '>
         <div className='py-5 px-2 text-4xl text-white flex items-center justify-center shadow-xl'>UNIQLO</div>
         <Tabs
           orientation='vertical'
@@ -60,7 +60,7 @@ export default function VerticalTabs() {
           sx={{
             borderColor: 'divider'
           }}
-          className='col-span-2 h-full '
+          className='col-span-2'
         >
           <Tab
             icon={

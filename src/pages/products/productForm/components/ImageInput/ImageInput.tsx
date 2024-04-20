@@ -12,10 +12,18 @@ const VisuallyHiddenInput = styled('input')({
   width: 1
 })
 
-export default function ImageInput({ title, multiple }: { title: string; multiple?: boolean }) {
+export default function ImageInput({
+  handleUpload,
+  title,
+  multiple
+}: {
+  title?: string
+  multiple?: boolean
+  handleUpload?: (event: React.ChangeEvent<HTMLInputElement>, multiple: boolean) => void
+}) {
   return (
     <div className='mt-[30px] w-[400px] flex items-end justify-between'>
-      <div className='text-[17px] underline text-gray-700'>{title}</div>
+      {title && <div className='text-[17px] underline text-gray-700'>{title}</div>}
       <Button
         component='label'
         role={undefined}
@@ -39,7 +47,13 @@ export default function ImageInput({ title, multiple }: { title: string; multipl
         }
       >
         Upload image
-        <VisuallyHiddenInput type='file' multiple={multiple} />
+        <VisuallyHiddenInput
+          type='file'
+          multiple={multiple}
+          onChange={(event) => {
+            handleUpload && handleUpload(event, Boolean(multiple))
+          }}
+        />
       </Button>
     </div>
   )

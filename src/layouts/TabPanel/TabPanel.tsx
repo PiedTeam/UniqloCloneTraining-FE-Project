@@ -7,7 +7,8 @@ import ProductManagement from 'src/pages/products'
 import Header from '../../components/Header'
 import classNames from 'classnames'
 import ProductForm from 'src/pages/products/productForm'
-
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 interface TabPanelProps {
   children?: React.ReactNode
   index: number
@@ -27,7 +28,7 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component='div'>{children}</Typography>
         </Box>
       )}
     </div>
@@ -166,9 +167,10 @@ export default function VerticalTabs() {
       </div>
       <div className='col-span-8'>
         <Header />
-
         <TabPanel value={value} index={0}>
-          <ProductForm />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <ProductForm />
+          </LocalizationProvider>
         </TabPanel>
 
         <TabPanel value={value} index={1}>
@@ -178,7 +180,6 @@ export default function VerticalTabs() {
         <TabPanel value={value} index={2}>
           Item Three
         </TabPanel>
-
         <TabPanel value={value} index={3}>
           Item Four
         </TabPanel>

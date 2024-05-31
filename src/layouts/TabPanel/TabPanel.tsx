@@ -3,10 +3,12 @@ import Tabs from '@mui/material/Tabs'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { Tab } from '@mui/material'
-import ProductManagement from 'src/pages/productManagement'
-import Header from '../Header'
+import ProductManagement from 'src/pages/products'
+import Header from '../../components/Header'
 import classNames from 'classnames'
-
+import ProductForm from 'src/pages/products/productForm'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 interface TabPanelProps {
   children?: React.ReactNode
   index: number
@@ -26,7 +28,7 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component='div'>{children}</Typography>
         </Box>
       )}
     </div>
@@ -43,12 +45,12 @@ export function a11yProps(index: number) {
 export default function VerticalTabs() {
   const [value, setValue] = React.useState(1)
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
   }
   return (
-    <Box className='grid grid-cols-10 gap-2 h-full'>
-      <div className='col-span-2 h-full bg-[#383F51]'>
+    <Box className='grid grid-cols-10 gap-2 h-[100vh]'>
+      <div className='col-span-2 h-full bg-[#383F51] '>
         <div className='py-5 px-2 text-4xl text-white flex items-center justify-center shadow-xl'>UNIQLO</div>
         <Tabs
           orientation='vertical'
@@ -59,7 +61,7 @@ export default function VerticalTabs() {
           sx={{
             borderColor: 'divider'
           }}
-          className='col-span-2 h-full '
+          className='col-span-2'
         >
           <Tab
             icon={
@@ -165,9 +167,10 @@ export default function VerticalTabs() {
       </div>
       <div className='col-span-8'>
         <Header />
-
         <TabPanel value={value} index={0}>
-          Item One
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <ProductForm />
+          </LocalizationProvider>
         </TabPanel>
 
         <TabPanel value={value} index={1}>
@@ -177,12 +180,10 @@ export default function VerticalTabs() {
         <TabPanel value={value} index={2}>
           Item Three
         </TabPanel>
-
         <TabPanel value={value} index={3}>
           Item Four
         </TabPanel>
       </div>
     </Box>
   )
-  //<div className='col-span-8 bg-white shadow'>HEADER HEAR</div>
 }

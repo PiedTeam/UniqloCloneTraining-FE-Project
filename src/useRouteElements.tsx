@@ -1,8 +1,8 @@
 import { useRoutes } from 'react-router-dom'
-import path from './constant/path'
+import path from './constants/path'
 import RegisterLayout from './layouts/RegisterLayout'
 import Login from './pages/login'
-import TabPanel from 'src/components/TabPanel'
+import TabPanel from 'src/layouts/TabPanel'
 import Register from './pages/register'
 
 export default function useRouteElements() {
